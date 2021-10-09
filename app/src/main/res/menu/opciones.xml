@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Niveles" >
+        <menu >
+            <item
+                android:id="@+id/facil"
+                android:title="Fácil" />
+            <item
+                android:id="@+id/normal"
+                android:title="Normal" />
+            <item
+                android:id="@+id/dificil"
+                android:title="Dificil" />
+        </menu>
+    </item>
+    <item android:title="Diseños" >
+        <menu >
+            <item
+                android:id="@+id/letras"
+                android:title="Letras" />
+            <item
+                android:id="@+id/números"
+                android:title="Números" />
+            <item
+                android:id="@+id/colores"
+                android:title="Colores" />
+        </menu>
+    </item>
+    <item
+        android:id="@+id/reiniciar"
+        android:title="Reiniciar Juego" />
+</menu>
