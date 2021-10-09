@@ -3,6 +3,8 @@ package uabc.axel.ornelas.memorama
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -29,9 +31,9 @@ class MainActivity : AppCompatActivity() {
             obtenerDialogo()
                 .setPositiveButton("OK") { _, _ ->
                     val nombre = editText1.text.toString()
-                    if (nombre == "") {
+                    if (nombre == "" || nombre.contains(',')) {
                         Toast.makeText(this,
-                            "Debes de agregar algun nombre",
+                            "Debes de agregar algun nombre y no debe de contener comas",
                             Toast.LENGTH_SHORT).show()
                         return@setPositiveButton
                     }
@@ -48,11 +50,13 @@ class MainActivity : AppCompatActivity() {
             //Obtiene el campo para poner el nombre
             val editText1 = obtenerEditText("Jugador 1")
             val toast =
-                Toast.makeText(this, "Debes de agregar algun nombre", Toast.LENGTH_SHORT)
+                Toast.makeText(this,
+                    "Debes de agregar algun nombre y no debe de contener comas",
+                    Toast.LENGTH_SHORT)
             //Alert dialog que muestra el campo para el nombre
             obtenerDialogo().setPositiveButton("OK") { _, _ ->
                 val nombre = editText1.text.toString()
-                if (nombre == "") {
+                if (nombre == "" || nombre.contains(',')) {
                     toast.show()
                     return@setPositiveButton
                 }
@@ -60,7 +64,7 @@ class MainActivity : AppCompatActivity() {
                 //Alert dialog que muestra el campo para el nombre
                 obtenerDialogo().setPositiveButton("OK") { _, _ ->
                     val nombre2 = editText2.text.toString()
-                    if (nombre2 == "") {
+                    if (nombre2 == "" || nombre.contains(',')) {
                         toast.show()
                         return@setPositiveButton
                     }
@@ -101,5 +105,26 @@ class MainActivity : AppCompatActivity() {
         editText.hint = texto
         editText.inputType = InputType.TYPE_CLASS_TEXT
         return editText
+    }
+
+    /**
+     * Opciones del menu que cambian los cuadros
+     */
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.opciones_menu_principal, menu)
+        return true
+    }
+
+    /**
+     * Se indican las opciones para modificar la vista del menu
+     */
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.historial -> {
+                startActivity(Intent(applicationContext, Score::class.java))
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

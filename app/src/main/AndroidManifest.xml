@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Memorama">
         <activity
+            android:name=".InformacionPuntaje"
+            android:exported="true" />
+        <activity
             android:name=".Juego"
             android:exported="true" />
         <activity

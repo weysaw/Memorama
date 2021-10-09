@@ -12,13 +12,14 @@ import uabc.axel.ornelas.memorama.databinding.ActivityJuegoBinding
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.concurrent.schedule
-
+import kotlin.properties.Delegates
 
 /**
  * Controla el memorama y lo enlaza con android
  */
 class Juego : AppCompatActivity() {
 
+    private var colorPrincipal by Delegates.notNull<Int>()
     private lateinit var binding: ActivityJuegoBinding
     private lateinit var memorama: Memorama
     private var tableroCuadros = ArrayList<Button>()
@@ -30,11 +31,11 @@ class Juego : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityJuegoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        colorPrincipal = application.getColor(R.color.design_default_color_primary)
         //Obtiene si es de 2 jugadores o no
         val jugandoContraCPU: Boolean = intent.getBooleanExtra("jugandoContraCPU", false)
         //Crea el juego y los cuadros
         memorama = Memorama(jugandoContraCPU, 3, 4, "letras")
-
         val j1: String = intent.getStringExtra("j1")!!
         memorama.agregarJugador(j1)
         //Si juega con el cpu se agrega el cpu de jugador
@@ -66,7 +67,7 @@ class Juego : AppCompatActivity() {
         //Crea un nuevo juego con las dimensiones o el diseño indicado
         val retorno = when (item.itemId) {
             R.id.facil -> {
-                memorama.nuevoJuego(4, 3, diseno)
+                memorama.nuevoJuego(3, 4, diseno)
                 crearCuadros()
                 true
             }
@@ -82,16 +83,19 @@ class Juego : AppCompatActivity() {
             }
             R.id.letras -> {
                 memorama.nuevoJuego(columnas, renglones, "letras")
+                colorPrincipal = application.getColor(R.color.design_default_color_primary)
                 crearCuadros()
                 true
             }
             R.id.números -> {
                 memorama.nuevoJuego(columnas, renglones, "números")
+                colorPrincipal = Color.rgb(0, 209, 180)
                 crearCuadros()
                 true
             }
             R.id.colores -> {
                 memorama.nuevoJuego(columnas, renglones, "colores")
+                colorPrincipal = Color.rgb(0, 189, 49)
                 crearCuadros()
                 true
             }
@@ -141,8 +145,7 @@ class Juego : AppCompatActivity() {
 
                 //Le cambia el color
                 cuadro.setTextColor(application.getColor(R.color.design_default_color_on_primary))
-                cuadro.setBackgroundColor(application.getColor(R.color.design_default_color_primary))
-
+                cuadro.setBackgroundColor(colorPrincipal)
                 cuadro.setOnClickListener {
                     if (esperarTurno)
                         return@setOnClickListener
@@ -266,19 +269,21 @@ class Juego : AppCompatActivity() {
     /**
      * Guarda la puntuacion del jugador
      */
-    private fun guardarPuntuacion(jugador: Jugador) {
+    private fun guardarPuntuacion(ganador: Jugador) {
         val nombreArchivo = "Puntuaciones"
-        val duracionPartida: Long = Date().time - tiempoInicial
+        val duracionPartida: Long = (Date().time - tiempoInicial) / 1000
+        val infoJugadores = "${memorama.jugadores[0].nombre},${memorama.jugadores[1].nombre}"
         //Contenido para el archivo
         val contenido =
-            "${jugador.nombre},${jugador.obtenerPuntaje()},${Date()}, ${duracionPartida}\n"
+            "$infoJugadores,${Date()},${duracionPartida},${ganador.nombre},${ganador.obtenerPuntaje()}\n"
+        //Escribe el contenido en el archivo
+        applicationContext.openFileOutput(nombreArchivo,
+            Context.MODE_PRIVATE or Context.MODE_APPEND).use {
+            it.write(contenido.toByteArray())
+        }
         Toast.makeText(applicationContext,
             "Puntuación Guardada",
             Toast.LENGTH_SHORT).show()
-        //Escribe el contenido en el archivo
-        applicationContext.openFileOutput(nombreArchivo, Context.MODE_PRIVATE or Context.MODE_APPEND).use {
-                it.write(contenido.toByteArray())
-        }
     }
 
     /**
@@ -289,7 +294,7 @@ class Juego : AppCompatActivity() {
         tableroCuadros.forEach { cuadro ->
             if (cuadro.isEnabled) {
                 cuadro.text = "MEMO"
-                cuadro.setBackgroundColor(application.getColor(R.color.design_default_color_primary))
+                cuadro.setBackgroundColor(colorPrincipal)
             }
         }
     }
