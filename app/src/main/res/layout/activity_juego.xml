@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Juego">
+
+    <TextView
+        android:id="@+id/turno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Es turno del jugador"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/puntosJ1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Puntos J1: "
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/puntosJ2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Puntos J2:"
+        android:textSize="24sp" />
+
+    <LinearLayout
+        android:id="@+id/tablero"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"/>
+
+</LinearLayout>

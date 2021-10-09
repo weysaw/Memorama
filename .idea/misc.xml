@@ -3,7 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Directorios/Documentos/Android-Proyectos/Memorama/app/src/main/res/layout-land/activity_juego.xml" value="0.29947460595446584" />
+        <entry key="..\:/Directorios/Documentos/Android-Proyectos/Memorama/app/src/main/res/layout-land/activity_main.xml" value="0.29947460595446584" />
+        <entry key="..\:/Directorios/Documentos/Android-Proyectos/Memorama/app/src/main/res/layout/activity_juego.xml" value="0.2884963768115942" />
         <entry key="..\:/Directorios/Documentos/Android-Proyectos/Memorama/app/src/main/res/layout/activity_main.xml" value="0.23505434782608695" />
+        <entry key="..\:/Directorios/Documentos/Android-Proyectos/Memorama/app/src/main/res/layout/activity_score.xml" value="0.2884963768115942" />
+        <entry key="..\:/Directorios/Documentos/Android-Proyectos/Memorama/app/src/main/res/menu/opciones.xml" value="0.21770833333333334" />
       </map>
     </option>
   </component>
