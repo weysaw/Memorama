@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    tools:context=".MainActivity">
+
+    <ImageButton
+        android:id="@+id/unJugador"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="50sp"
+        android:layout_marginTop="50sp"
+        android:layout_marginRight="50sp"
+        android:layout_marginBottom="50sp"
+        android:layout_weight="1"
+        android:background="@color/design_default_color_primary"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/un_jugador" />
+
+    <ImageButton
+        android:id="@+id/dosJugadores"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/white"
+        app:srcCompat="@drawable/dos_jugadores" />
+</LinearLayout>
