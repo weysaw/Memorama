@@ -242,6 +242,7 @@ class Juego : AppCompatActivity() {
                     if (memorama.jugandoContraCPU && memorama.turno == 1)
                         jugadaCPU()
                 }
+
             }
         }
     }
@@ -253,11 +254,10 @@ class Juego : AppCompatActivity() {
         val jugador: Jugador? = memorama.verificarGanador()
         //Si es empate no guarda las puntuaciones
         val texto: String = if (jugador != null) {
-            guardarPuntuacion(jugador)
             "El Ganador es ${jugador.nombre}"
         } else
             "Fue empate"
-
+        guardarPuntuacion(jugador)
         //Muesta quien fue el ganador o si fue empate en el dialogo
         AlertDialog.Builder(this)
             .setTitle("FIN DEL JUEGO")
@@ -269,13 +269,15 @@ class Juego : AppCompatActivity() {
     /**
      * Guarda la puntuacion del jugador
      */
-    private fun guardarPuntuacion(ganador: Jugador) {
+    private fun guardarPuntuacion(ganador: Jugador?) {
         val nombreArchivo = "Puntuaciones"
         val duracionPartida: Long = (Date().time - tiempoInicial) / 1000
         val infoJugadores = "${memorama.jugadores[0].nombre},${memorama.jugadores[1].nombre}"
         //Contenido para el archivo
-        val contenido =
+        val contenido = if (ganador != null)
             "$infoJugadores,${Date()},${duracionPartida},${ganador.nombre},${ganador.obtenerPuntaje()}\n"
+        else
+            "$infoJugadores,${Date()},${duracionPartida},Fue Empate,Quedo Empate\n"
         //Escribe el contenido en el archivo
         applicationContext.openFileOutput(nombreArchivo,
             Context.MODE_PRIVATE or Context.MODE_APPEND).use {
